@@ -3,10 +3,6 @@
 #an argument instead (plus then users can define the number of sides)
 import random
 
-DEFAULT_OPTS = ('a', 's', 'd', 'q')
-
-sides = 0
-
 class dice(object):
     def __init__(self, name):
         self.name = name
@@ -50,22 +46,17 @@ def main_loop():
     while True:
         opts = DEFAULT_OPTS
         choice = user_choice(opts)
-        if choice == 'a':
-            results = a.roll()
-            a.print_roll(results)
-        elif choice == 's':
-            results = b.roll()
-            b.print_roll(results)
-        elif choice == 'd':
-            results = c.roll()
-            c.print_roll(results)
+        if choice != 'q':
+            results = DICE_DICT[choice].roll()
+            DICE_DICT[choice].print_roll(results)
         elif choice == 'q':
             break
 
+DEFAULT_OPTS = ('a', 's', 'd', 'q')
+sides = 0
+DICE_DICT = {'a': d_six('D6'), 's': d_ten('D10'), 'd': d_twenty('D20')}
+
 instructions()
-a = d_six('D6')
-b = d_ten('D10')
-c = d_twenty('D20')
 main_loop()
 
 print('bye')
